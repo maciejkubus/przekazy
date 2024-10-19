@@ -1,44 +1,65 @@
 <script lang="ts">
-	import Item from "$lib/components/Item.svelte";
-	import Summary from "$lib/components/Summary.svelte";
+	import Item from '$lib/components/Item.svelte';
+	import Summary from '$lib/components/Summary.svelte';
 	let items: any[] = [];
-	let money = 0
-	let done = false
+	let money = 0;
+	let done = false;
 
 	function add() {
-		items = [...items, {
-			id: Date.now(),
-			value: 0
-		}]
+		items = [
+			...items,
+			{
+				id: Date.now(),
+				value: null
+			}
+		];
 	}
 
 	function sum() {
-		money = 0
-		items.forEach(item => money+=item.value)
+		money = 0;
+		items.forEach((item) => (money += item.value ? item.value : 0));
 	}
 
 	function change(event: any) {
-		const item = items.find(i => i.id == event.detail.id)
-		item.value = event.detail.value
-		sum()
+		const item = items.find((i) => i.id == event.detail.id);
+		item.value = event.detail.value;
+		sum();
+	}
+
+	function remove(event: any) {
+		items = [...items.filter((i) => i.id != event.detail)];
 	}
 
 	function submit() {
-		done = true
+		done = true;
 	}
 </script>
 
-<div class="container h-full mx-auto flex justify-center items-center">
-	<div class="space-y-5 pt-8 w-96">
-		<h1 class="h1">Money: {money}</h1>
+<div class="w-full h-full mx-auto flex justify-center items-center">
+	<div class="w-full">
+		<h1 class="h1 border-b-2 border-white border-dashed text-4xl py-8">Przekazy</h1>
 		{#if !done}
-			{#each items as item}
-				<Item defaultValue={item.value} id={item.id} on:change={change}></Item>
+			{#each items as item, index}
+				<Item id={item.id} value={item.value} on:change={change} on:remove={remove}>
+					#{index + 1}
+				</Item>
 			{/each}
-			<button class="p-4 w-full text-center bg-primary-500 text-xl font-bold" on:click={add}>+</button>
-			<button class="p-4 w-full text-center bg-secondary-500 text-xl font-bold" on:click={submit}>=</button>
+			<div class="pt-8 flex">
+				<button
+					class="p-4 w-full text-center bg-primary-500 hover:bg-primary-400 text-xl font-bold"
+					on:click={add}
+				>
+					Dodaj
+				</button>
+				<button
+					class="p-4 w-full text-center bg-secondary-500 hover:bg-secondary-400 text-xl font-bold"
+					on:click={submit}
+				>
+					Oblicz
+				</button>
+			</div>
 		{:else}
-			<Summary orders={items.map(i => parseFloat(i.value))}></Summary>
+			<Summary orders={items.map((i) => parseFloat(i.value ? i.value : 0))}></Summary>
 		{/if}
 	</div>
 </div>
