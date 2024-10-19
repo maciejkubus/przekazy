@@ -5,11 +5,11 @@
 	export let orders: number[] = [];
 	let sum = 0;
 	let items = [
-		{ nominal: 200, label: '2 zł', quantity: 0 },
-		{ nominal: 100, label: '1 zł', quantity: 0 },
-		{ nominal: 50, label: '5 zł', quantity: 0 },
-		{ nominal: 20, label: '2 zł', quantity: 0 },
-		{ nominal: 10, label: '1 zł', quantity: 0 },
+		{ nominal: 200, label: '200 zł', quantity: 0 },
+		{ nominal: 100, label: '100 zł', quantity: 0 },
+		{ nominal: 50, label: '50 zł', quantity: 0 },
+		{ nominal: 20, label: '20 zł', quantity: 0 },
+		{ nominal: 10, label: '10 zł', quantity: 0 },
 		{ nominal: 5, label: '5 zł', quantity: 0 },
 		{ nominal: 2, label: '2 zł', quantity: 0 },
 		{ nominal: 1, label: '1 zł', quantity: 0 },
