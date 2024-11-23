@@ -13,6 +13,14 @@
 				value: null
 			}
 		];
+
+		setTimeout(() => {
+			const elToFocus: HTMLInputElement | null = document.querySelector(
+				'input[tabindex="' + (items.length - 1) + '"]'
+			);
+
+			if (elToFocus) elToFocus.focus();
+		});
 	}
 
 	function sum() {
@@ -33,17 +41,28 @@
 	function submit() {
 		done = true;
 	}
+
+	function goBack() {
+		done = false;
+	}
 </script>
 
 <div class="w-full h-full mx-auto flex justify-center items-center">
 	<div class="w-full">
-		<h1 class="h1 text-4xl py-8">Przekazy</h1>
 		{#if !done}
+			<h1 class="h1 text-4xl font-bold py-8">Enter orders</h1>
 			<div
 				class="w-full flex flex-col justify-center items-center border-t-2 border-white border-dashed"
 			>
 				{#each items as item, index}
-					<Item id={item.id} value={item.value} on:change={change} on:remove={remove}>
+					<Item
+						id={item.id}
+						value={item.value}
+						on:change={change}
+						on:remove={remove}
+						on:new={add}
+						{index}
+					>
 						#{index + 1}
 					</Item>
 				{/each}
@@ -53,16 +72,24 @@
 					class="p-4 w-full text-center bg-primary-500 hover:bg-primary-400 text-xl font-bold"
 					on:click={add}
 				>
-					Dodaj
+					Add
 				</button>
 				<button
 					class="p-4 w-full text-center bg-secondary-500 hover:bg-secondary-400 text-xl font-bold"
 					on:click={submit}
 				>
-					Oblicz
+					Calculate
 				</button>
 			</div>
 		{:else}
+			<button
+				class="text-1xl mt-8 mb-12 rounded-lg bg-surface-500 flex justify-center items-center gap-4 py-2 px-4 hover:bg-surface-400"
+				on:click={goBack}
+			>
+				<span class="text-3xl">&#10554;</span>
+				<span>Back</span>
+			</button>
+			<h1 class="h1 text-4xl pb-8 font-bold">Summary</h1>
 			<Summary orders={items.map((i) => parseFloat(i.value ? i.value : 0))}></Summary>
 		{/if}
 	</div>

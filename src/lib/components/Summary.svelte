@@ -40,28 +40,19 @@
 	});
 </script>
 
-<div class="px-16">
-	<table class="mx-auto table table-fixed rounded-none shadow-lg">
-		<thead>
-			<tr>
-				<th class="!text-2xl border-2 border-white px-4 py-2">Quantity</th>
-				<th class="!text-2xl border-2 border-white px-4 py-2">Denomination</th>
-				<th class="!text-2xl border-2 border-white px-4 py-2">Sum</th>
-			</tr>
-		</thead>
-		<tbody>
-			{#each items as item}
-				<tr class="table-row">
-					<td class="w-20 !text-2xl border-2 border-white px-4 py-2">{item.quantity}</td>
-					<td class="w-12 !text-2xl border-2 border-white px-4 py-2">{item.label}</td>
-					<td class="w-32 !text-2xl border-2 border-white px-4 py-2">
-						{item.quantity * item.nominal} zł
-					</td>
-				</tr>
-			{/each}
-		</tbody>
-	</table>
-	<div class="text-right py-8 px-4 text-4xl font-bold">
-		Total: {sum.toFixed(2)} zł
+<div>
+	<div
+		class="flex flex-col justify-center items-center text-2xl w-full border-t-2 border-white border-dashed"
+	>
+		{#each items as item, index}
+			{#if item.quantity > 0}
+				<div class="py-2 border-b-2 border-white border-dashed w-full text-center">
+					{item.quantity} &times; {item.label} &equals; {(item.quantity * item.nominal).toFixed(2)} zł
+				</div>
+			{/if}
+		{/each}
+	</div>
+	<div class="text-right py-8 text-4xl font-bold px-8">
+		{sum.toFixed(2)} zł
 	</div>
 </div>
