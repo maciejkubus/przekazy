@@ -1,0 +1,14 @@
+{
+  "name": "Postal orders",
+  "description": "app for making ordering money east",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
