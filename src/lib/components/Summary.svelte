@@ -24,12 +24,9 @@
 	function divide(val: number) {
 		let sum = val;
 		items.forEach((item) => {
-			//this is to avoid 0.1 + 0.2 =  0.30000000000000004 error
-			let nominal = item.nominal * 100;
-
-			let quantity = Math.floor(sum / nominal);
-			sum -= quantity * nominal;
-			item.quantity += quantity / 100;
+			let quantity = Math.floor(sum / item.nominal);
+			sum -= quantity * item.nominal;
+			item.quantity += quantity;
 		});
 	}
 
