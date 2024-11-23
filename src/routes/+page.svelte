@@ -1,4 +1,5 @@
 <script lang="ts">
+	export const prerender = true;
 	import Item from '$lib/components/Item.svelte';
 	import Summary from '$lib/components/Summary.svelte';
 	let items: any[] = [];
